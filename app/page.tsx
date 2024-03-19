@@ -1,3 +1,5 @@
+import ProductGrid from "@/components/product-grid";
+
 export default function Home() {
   return (
     <main>
@@ -8,7 +10,7 @@ export default function Home() {
     </section>
     <section className="products container" id="products">
         <h2 className="heading">Discover Product</h2>
-        <div className="product-container" id="productList"></div>
+        <ProductGrid/>
     </section>
     </main>
   );
