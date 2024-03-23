@@ -8,8 +8,8 @@ const footerItemStyle = "text-bg-color text-base uppercase mt-4d" + font.classNa
 
 export default function Footer() {
   return (
-    <div className={"bg-main-color py-10 " + font.className}>
-      <div className="grid grid-cols-[60%_20%_20%] gap-4 mx-5">
+    <div className={"bg-main-color p-5 " + font.className}>
+      <div className="grid grid-cols-[60%_20%_20%]">
         <div className={footerBoxStyle}>
           <h2 className="text-9xl text-bg-color uppercase">Site</h2>
           <div className="social">
