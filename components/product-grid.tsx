@@ -6,8 +6,11 @@ import { DataView } from "primereact/dataview";
 import Image from "next/image";
 import "primeicons/primeicons.css";
 import { Product } from "@/lib/products";
+import { useAppDispatch } from "@/lib/hooks";
 
 export default function ProductGrid({ products }: { products: Product[] }) {
+  const dispatch = useAppDispatch();
+
   const gridItem = (product: Product) => {
     return (
       <div
@@ -44,6 +47,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
             <Button
               icon="pi pi-shopping-cart"
               className="p-button-rounded"
+              onClick={() => dispatch({type: 'cart/addToCart', payload: { id: product.id, quantity: 1 }})}
             ></Button>
           </div>
         </div>
