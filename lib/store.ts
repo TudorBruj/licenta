@@ -1,4 +1,6 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage';
 
 type CartItem = {
     id: number
@@ -34,12 +36,26 @@ const cartSlice = createSlice({
     }
 })
 
+const rootReducer = combineReducers({
+    cart: cartSlice.reducer
+})
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 export const makeStore = () => {
   return configureStore({
-    reducer: {
-        cart: cartSlice.reducer
-    },
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
   })
+}
+
+export const makePersistor = (store: AppStore) => {
+    return persistStore(store)
 }
 
 // Infer the type of makeStore
