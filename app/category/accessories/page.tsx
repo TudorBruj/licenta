@@ -1,18 +1,10 @@
 import ProductGrid from "@/components/product-grid";
-import { getProducts } from "@/lib/products";
+import {getProductsByCategory } from "@/lib/products";
 
 export default async function Accessories(){
-    const promiseJ = getProducts({
-        filter: {
-            category: "jewelery"
-        }
-    });
+    const promiseJ = getProductsByCategory("jewelery");
 
-    const promiseE = getProducts({
-        filter: {
-            category: "electronics"
-        }
-    });
+    const promiseE = getProductsByCategory("electronics")
 
     const [productsJ, productsE] = await Promise.all([promiseJ, promiseE]);
     

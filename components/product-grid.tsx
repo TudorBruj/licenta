@@ -47,7 +47,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
             <Button
               icon="pi pi-shopping-cart"
               className="p-button-rounded"
-              onClick={() => dispatch({type: 'cart/addToCart', payload: { id: product.id, quantity: 1 }})}
+              onClick={() => dispatch({type: 'cart/incrementQuantity', payload: { id: product.id, quantity: 1 }})}
             ></Button>
           </div>
         </div>

@@ -11,12 +11,23 @@ export interface Product {
     }
 }
 
-export async function getProducts(options: { filter?: Record<string, any> } = {}) {
-    let url = "https://fakestoreapi.com/products";
-    if (options.filter?.category)
-        url = `https://fakestoreapi.com/products/category/${encodeURIComponent(options.filter.category)}`;
-    console.log(url);
+export async function getProducts() {
+    const url = "https://fakestoreapi.com/products";
     const response = await fetch(url);
     const products: Product[] = await response.json();
     return products;
+}
+
+export async function getProductsByCategory(category: string) {
+    const url = "https://fakestoreapi.com/products/category/"+ encodeURIComponent(category);
+    const response = await fetch(url);
+    const products: Product[] = await response.json();
+    return products;
+}
+
+export async function getProductById(id: number) {
+    const url = "https://fakestoreapi.com/products/"+ encodeURIComponent(id);
+    const response = await fetch(url);
+    const product: Product = await response.json();
+    return product;
 }

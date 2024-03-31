@@ -1,10 +1,10 @@
 'use client'
 
 import Link from "next/link";
-import { Big_Shoulders_Text } from 'next/font/google'
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { Big_Shoulders_Text } from 'next/font/google';
 import { Badge } from 'primereact/badge';
 import { useAppSelector } from "@/lib/hooks";
+import SideBar from "./sidebar";
 
 const font= Big_Shoulders_Text({ subsets: ['latin'] })
 const linkStyle = "text-main-color font-bold " + font.className
@@ -29,10 +29,8 @@ export default function Header() {
             Accessories
           </Link>
         </div>
-        <Link href=" cart.html ">
-          <i className="pi pi-shopping-cart text-main-color" style={{ fontSize: '2rem' }}>
-            <Badge value={cartCount}></Badge>
-          </i>
+        <Link href="">
+          <SideBar/>
         </Link>
       </div>
     </header>
