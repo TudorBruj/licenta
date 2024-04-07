@@ -19,13 +19,13 @@ export default function Header() {
           Logo
         </Link>
         <div className="flex gap-4 justify-center">
-          <Link href=" /category/woman" className={linkStyle}>
+          <Link href=" /category/women's clothing" className={linkStyle}>
             Woman
           </Link>
-          <Link href=" /category/man " className={linkStyle}>
+          <Link href=" /category/men's clothing" className={linkStyle}>
             Man
           </Link>
-          <Link href=" /category/accessories " className={linkStyle}>
+          <Link href=" /category/Accessories " className={linkStyle}>
             Accessories
           </Link>
         </div>
