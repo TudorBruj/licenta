@@ -5,7 +5,7 @@ import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { Badge } from "primereact/badge";
 import { useAppSelector } from "@/lib/hooks";
-import { getProductById } from "@/lib/products";
+import { getProductById } from "@/lib/data/products";
 import SidebarProductList, { CartProduct } from "./sidebar-product-list";
 
 export default function SideBar() {

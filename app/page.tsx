@@ -1,7 +1,7 @@
 import ProductCarousel from "@/components/carousel";
 import ProductGrid from "@/components/product-grid";
 import SideBar from "@/components/sidebar";
-import { getProducts } from "@/lib/products";
+import { getProducts } from "@/lib/data/products";
 import { Big_Shoulders_Text } from 'next/font/google'
 
 const font= Big_Shoulders_Text({ subsets: ['latin'] })

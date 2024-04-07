@@ -1,6 +1,8 @@
+"use server"
+
 import { MongoClient } from "mongodb";
 
-export interface Users{
+export interface User{
     email: string,
     password: string
 }
@@ -14,7 +16,7 @@ const client = new MongoClient(uri);
 export async function getUsers () {
     try {
         await client.connect();
-        const userCollection = client.db(dbName).collection<Users>("users");
+        const userCollection = client.db(dbName).collection<User>("users");
         const cursor = userCollection.find({}) 
         const users = await cursor.toArray()
         return users
@@ -26,7 +28,7 @@ export async function getUsers () {
 export async function validateUser(email: string, password: string) {
   try {
     await client.connect();
-    const userCollection = client.db(dbName).collection<Users>("users");
+    const userCollection = client.db(dbName).collection<User>("users");
     const user = await userCollection.findOne({email})
     return user
   } finally {

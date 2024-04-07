@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
 import Image from "next/image";
-import { Product } from "@/lib/products";
+import { Product } from "@/lib/data/products";
 
 export default function ProductCarousel({products}: {products: Product[]}) {
 
@@ -14,7 +14,7 @@ export default function ProductCarousel({products}: {products: Product[]}) {
         <div className="mb-3 flex justify-center">
         <div style={{ width: "150px", height: "150px", position: "relative" }}>
           <Image
-            src={product.image}
+            src={product.images}
             alt="Description of image"
             layout="fill"
             objectFit="contain"
@@ -23,14 +23,8 @@ export default function ProductCarousel({products}: {products: Product[]}) {
         </div>
         </div>
         <div>
+          <div className="mt-5 flex flex-wrap gap-2 justify-center align-center">{product.name}</div>
           <h6 className="mt-0 mb-3 font-medium text-gray-700 dark:text-white/80">${product.price}</h6>
-          <div className="mt-5 flex flex-wrap gap-2 justify-center align-center">
-            <Button icon="pi pi-search" className="p-button p-button-rounded" />
-            <Button
-              icon="pi pi-star-fill"
-              className="mr-2 text-gray-700 dark:text-white/80 inline-flex"
-            />
-          </div>
         </div>
       </div>
     );

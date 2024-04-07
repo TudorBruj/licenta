@@ -14,11 +14,11 @@ export default function Header() {
 
   return (
     <header>
-      <div className="flex items-center justify-between py-6 px-10 m-auto w-full">
+      <div className="flex items-center justify-between py-6 px-10 m-auto w-full sticky">
         <Link href="/" className={"text-2xl text-main-color uppercase font-bold " + font.className}>
-          Site
+          Logo
         </Link>
-        <div className="flex gap-4 ">
+        <div className="flex gap-4 justify-center">
           <Link href=" /category/woman" className={linkStyle}>
             Woman
           </Link>

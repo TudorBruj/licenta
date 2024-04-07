@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import { DataView } from "primereact/dataview";
 import Image from "next/image";
 import "primeicons/primeicons.css";
-import { Product } from "@/lib/products";
+import { Product } from "@/lib/data/products";
 import { useAppDispatch } from "@/lib/hooks";
 
 export default function ProductGrid({ products }: { products: Product[] }) {
@@ -31,14 +31,14 @@ export default function ProductGrid({ products }: { products: Product[] }) {
               style={{ width: "150px", height: "150px", position: "relative" }}
             >
               <Image
-                src={product.image}
+                src={product.images}
                 alt="Description of image"
                 layout="fill"
                 objectFit="contain"
                 objectPosition="center"
               />
             </div>
-            <div className="text-base font-bold whitespace-nowrap overflow-hidden text-ellipsis w-full text-center">{product.title}</div>
+            <div className="text-base font-bold whitespace-nowrap overflow-hidden text-ellipsis w-full text-center">{product.name}</div>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-semibold text-gray-700 dark:text-white/80">
@@ -47,6 +47,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
             <Button
               icon="pi pi-shopping-cart"
               className="p-button-rounded"
+              label="Add to Cart"
               onClick={() => dispatch({type: 'cart/incrementQuantity', payload: { id: product.id, quantity: 1 }})}
             ></Button>
           </div>
