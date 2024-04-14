@@ -25,13 +25,13 @@ export default function SidebarProductList({ products }: { products: CartProduct
           <div className="item-quantity flex items-center">
             <Button
               icon="pi pi-minus"
-              className="p-button-rounded"
+              className="my-1 mx-2"
               onClick={() => dispatch({ type: 'cart/decrementQuantity', payload: { id: product.id, quantity: 1 } })}
             />
             <span className="quantity-value">{product.quantity}</span>
             <Button
               icon="pi pi-plus"
-              className="p-button-rounded"
+              className="my-1 mx-2"
               onClick={() => dispatch({ type: 'cart/incrementQuantity', payload: { id: product.id, quantity: 1 } })}
             />
           </div>

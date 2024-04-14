@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react";
-import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
 import Image from "next/image";
 import { Product } from "@/lib/data/products";

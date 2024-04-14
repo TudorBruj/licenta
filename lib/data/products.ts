@@ -55,7 +55,7 @@ export async function getProductById(id: string) {
     try {
         await client.connect();
         const collection = client.db(dbName).collection<Product>("products");
-        const data = await collection.findOne({id}) 
+        const data = await collection.findOne({_id : new ObjectId(id)}) 
         if (data) {
             data.id = data._id.toString()
             data._id = data._id.toString()
