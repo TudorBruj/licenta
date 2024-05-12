@@ -22,7 +22,7 @@ export default function SideBar() {
   const router = useRouter();
 
   const [first, setFirst] = useState<number>(0);
-  const [rows, setRows] = useState<number>(5);
+  const [rows, setRows] = useState<number>(4);
 
   const onPageChange = (event: { first: number; rows: number }) => {
     setFirst(event.first);
@@ -107,10 +107,26 @@ export default function SideBar() {
             rows={rows}
             totalRecords={products.length}
             onPageChange={onPageChange}
-            className="flex justify-center p-4"
+            pt={{
+              firstPageButton: {
+                className: "min-w-8"
+              },
+              prevPageButton: {
+                className: "min-w-8"
+              },
+              pageButton: {
+                className: "min-w-8"
+              },
+              nextPageButton: {
+                className: "min-w-8"
+              },
+              lastPageButton: {
+                className: "min-w-8"
+              }
+            }}
           />
         </div>
-        <div className="absolute inset-x-0 bottom-12 flex justify-between p-4">
+        <div className="inset-x-0 bottom-12 flex justify-between p-2">
           <div>Total Amount: ${totalAmount.toFixed(2)}</div>
           <Button label="Checkout" onClick={handler} />
         </div>
