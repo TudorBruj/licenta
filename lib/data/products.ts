@@ -1,75 +1,75 @@
-"use server"
+'use server';
 
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient, ObjectId } from 'mongodb';
 
-export interface Product{
-    _id: string | ObjectId,
-    id: string,
-    name: string,
-    description: string,
-    price: number,
-    category: string,
-    color: string,
-    images: string
+export interface Product {
+  _id: string | ObjectId;
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  color: string;
+  images: string;
 }
 
-const uri = process.env["MONGODB_URI"] ?? "mongodb://localhost:27017";
+const uri = process.env['MONGODB_URI'] ?? 'mongodb://localhost:27017';
 
-const dbName = "licenta"
+const dbName = 'licenta';
 
 const client = new MongoClient(uri);
 
 export async function getProducts() {
-    try {
-        await client.connect();
-        const collection = client.db(dbName).collection<Product>("products");
-        const cursor = collection.find({}) 
-        const data = await cursor.toArray()
-        for (const element of data) {
-            element.id = element._id.toString()
-            element._id = element._id.toString()
-        }
-        return data
-      } finally {
-        await client.close();
-      }
+  try {
+    await client.connect();
+    const collection = client.db(dbName).collection<Product>('products');
+    const cursor = collection.find({});
+    const data = await cursor.toArray();
+    for (const element of data) {
+      element.id = element._id.toString();
+      element._id = element._id.toString();
+    }
+    return data;
+  } finally {
+    await client.close();
+  }
 }
 
 export async function getProductsByCategory(category: string) {
-    try {
-        await client.connect();
-        const collection = client.db(dbName).collection<Product>("products");
-        const cursor = collection.find({category}) 
-        const data = await cursor.toArray()
-        for (const element of data) {
-            element.id = element._id.toString()
-            element._id = element._id.toString()
-        }
-        return data
-      } finally {
-        await client.close();
-      }
+  try {
+    await client.connect();
+    const collection = client.db(dbName).collection<Product>('products');
+    const cursor = collection.find({ category });
+    const data = await cursor.toArray();
+    for (const element of data) {
+      element.id = element._id.toString();
+      element._id = element._id.toString();
+    }
+    return data;
+  } finally {
+    await client.close();
+  }
 }
 
 export async function getProductById(id: string) {
-    try {
-        await client.connect();
-        const collection = client.db(dbName).collection<Product>("products");
-        const data = await collection.findOne({_id : new ObjectId(id)}) 
-        if (data) {
-            data.id = data._id.toString()
-            data._id = data._id.toString()
-        }
-        return data
-      } finally {
-        await client.close();
-      }
+  try {
+    await client.connect();
+    const collection = client.db(dbName).collection<Product>('products');
+    const data = await collection.findOne({ _id: new ObjectId(id) });
+    if (data) {
+      data.id = data._id.toString();
+      data._id = data._id.toString();
+    }
+    return data;
+  } finally {
+    await client.close();
+  }
 }
 
 export async function addProduct(product: Product) {
   try {
     await client.connect();
-    const collection = client.db(dbName).collection<Product>("products");
+    const collection = client.db(dbName).collection<Product>('products');
     product._id = new ObjectId();
     product.id = product._id.toString();
     await collection.insertOne(product);
@@ -79,21 +79,21 @@ export async function addProduct(product: Product) {
 }
 
 export async function removeProduct(id: string) {
-    try {
-        await client.connect();
-        const collection = client.db(dbName).collection<Product>("products");
-        await collection.deleteOne({_id: new ObjectId(id)});
-      } finally {
-        await client.close();
-      }
+  try {
+    await client.connect();
+    const collection = client.db(dbName).collection<Product>('products');
+    await collection.deleteOne({ _id: new ObjectId(id) });
+  } finally {
+    await client.close();
+  }
 }
 
 export async function updateProduct(product: Product) {
   try {
     await client.connect();
-    const collection = client.db(dbName).collection<Product>("products");
+    const collection = client.db(dbName).collection<Product>('products');
     product._id = new ObjectId(product.id);
-    await collection.findOneAndReplace({_id: product._id}, product)
+    await collection.findOneAndReplace({ _id: product._id }, product);
   } finally {
     await client.close();
   }

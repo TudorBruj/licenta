@@ -1,23 +1,36 @@
 /* eslint-disable react/no-unescaped-entities */
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function LoginForm() {
-    return (
-        <div className="grid place-items-center h-screen">
-            <div className="shadow-lg p-5 rounded-lg border-t-4 border-main-color">
-                <h1 className="text-xl font-bold my-4">Login</h1>
+  return (
+    <div className='grid h-screen place-items-center'>
+      <div className='rounded-lg border-t-4 border-main-color p-5 shadow-lg'>
+        <h1 className='my-4 text-xl font-bold'>Login</h1>
 
-                <form className="flex flex-col gap-3">
-                    <input className="w-96 border border-gray-200 py-2 px-6" type="text" placeholder="Email" />
-                    <input className="w-96 border border-gray-200 py-2 px-6" type="password" placeholder="Password" />
-                    <button className="bg-main-color text-bg-color font-bold cursor-pointer px-6 py-6">Login</button>
+        <form className='flex flex-col gap-3'>
+          <input
+            className='border-gray-200 w-96 border px-6 py-2'
+            type='text'
+            placeholder='Email'
+          />
+          <input
+            className='border-gray-200 w-96 border px-6 py-2'
+            type='password'
+            placeholder='Password'
+          />
+          <button className='cursor-pointer bg-main-color px-6 py-6 font-bold text-bg-color'>
+            Login
+          </button>
 
-                    <div className="bg-red-500 text-bg-color text-sm py-1 px-3 rounded-md mt-2">Error message</div>
-                    <Link className="text-sm mt-3 text-right" href={'/register'}>Don't have an account?
-                    <span className="underline">Register</span>
-                    </Link>
-                </form>
-            </div>
-        </div>
-    );
+          <div className='bg-red-500 mt-2 rounded-md px-3 py-1 text-sm text-bg-color'>
+            Error message
+          </div>
+          <Link className='mt-3 text-right text-sm' href={'/register'}>
+            Don't have an account?
+            <span className='underline'>Register</span>
+          </Link>
+        </form>
+      </div>
+    </div>
+  );
 }

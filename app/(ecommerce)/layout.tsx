@@ -1,5 +1,5 @@
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 export default function EcommerceLayout({
   children,
@@ -8,9 +8,9 @@ export default function EcommerceLayout({
 }>) {
   return (
     <>
-        <Header />
-        {children}
-        <Footer />
+      <Header />
+      {children}
+      <Footer />
     </>
   );
 }

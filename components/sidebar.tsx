@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Sidebar } from "primereact/sidebar";
-import { Button } from "primereact/button";
-import { Badge } from "primereact/badge";
-import { useAppSelector } from "@/lib/hooks";
-import { getProductById } from "@/lib/data/products";
-import SidebarProductList, { CartProduct } from "./sidebar-product-list";
-import { Paginator } from "primereact/paginator";
-import { loadStripe } from "@stripe/stripe-js";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from 'react';
+import { Sidebar } from 'primereact/sidebar';
+import { Button } from 'primereact/button';
+import { Badge } from 'primereact/badge';
+import { useAppSelector } from '@/lib/hooks';
+import { getProductById } from '@/lib/data/products';
+import SidebarProductList, { CartProduct } from './sidebar-product-list';
+import { Paginator } from 'primereact/paginator';
+import { loadStripe } from '@stripe/stripe-js';
+import { useRouter } from 'next/navigation';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -29,27 +29,27 @@ export default function SideBar() {
     setRows(event.rows);
   };
 
-  useEffect (() => {
+  useEffect(() => {
     const getProductsByCart = async (items: typeof cart) => {
       const products = [];
       for (const item of items) {
-        const product: CartProduct = (await getProductById(item.id)) as any
-        console.log(product, item.id)
-        product.quantity = item.quantity
-        products.push(product) 
+        const product: CartProduct = (await getProductById(item.id)) as any;
+        console.log(product, item.id);
+        product.quantity = item.quantity;
+        products.push(product);
       }
-      console.log(products)
+      console.log(products);
       return products;
-    }
-    getProductsByCart(cart).then((items) => setProducts(items))
+    };
+    getProductsByCart(cart).then((items) => setProducts(items));
   }, [cart]);
 
-  useEffect (() => {
+  useEffect(() => {
     let count = 0;
     let amount = 0;
     for (const item of cart) {
       count += item.quantity;
-      const product = products.find(p => p.id === item.id);
+      const product = products.find((p) => p.id === item.id);
       if (product) {
         amount += product.price * item.quantity;
       }
@@ -64,32 +64,32 @@ export default function SideBar() {
     try {
       const stripe = await asyncStripe;
       if (!stripe) return;
-      const res = await fetch("/api/stripe/session", {
-        method: "POST",
+      const res = await fetch('/api/stripe/session', {
+        method: 'POST',
         body: JSON.stringify({
-          products
+          products,
         }),
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
       });
       const { sessionId } = await res.json();
 
       const { error } = await stripe.redirectToCheckout({ sessionId });
       console.log(error);
       if (error) {
-        router.push("/error");
+        router.push('/error');
       }
     } catch (err) {
       console.log(err);
-      router.push("/error");
+      router.push('/error');
     }
   };
 
   return (
-    <div className="card">
-      <div className="flex gap-2 justify-content-center">
+    <div className='card'>
+      <div className='justify-content-center flex gap-2'>
         <Button
-          icon="pi pi-shopping-cart text-main-color text-2xl"
-          style={{ fontSize: "2rem" }}
+          icon='pi pi-shopping-cart text-main-color text-2xl'
+          style={{ fontSize: '2rem' }}
           onClick={() => setVisibleRight(true)}
         />
         <Badge value={quantity}></Badge>
@@ -97,11 +97,11 @@ export default function SideBar() {
 
       <Sidebar
         visible={visibleRight}
-        position="right"
+        position='right'
         onHide={() => setVisibleRight(false)}
       >
         <SidebarProductList products={paginatedProducts} />
-        <div className="card">
+        <div className='card'>
           <Paginator
             first={first}
             rows={rows}
@@ -109,26 +109,26 @@ export default function SideBar() {
             onPageChange={onPageChange}
             pt={{
               firstPageButton: {
-                className: "min-w-8"
+                className: 'min-w-8',
               },
               prevPageButton: {
-                className: "min-w-8"
+                className: 'min-w-8',
               },
               pageButton: {
-                className: "min-w-8"
+                className: 'min-w-8',
               },
               nextPageButton: {
-                className: "min-w-8"
+                className: 'min-w-8',
               },
               lastPageButton: {
-                className: "min-w-8"
-              }
+                className: 'min-w-8',
+              },
             }}
           />
         </div>
-        <div className="inset-x-0 bottom-12 flex justify-between p-2">
+        <div className='inset-x-0 bottom-12 flex justify-between p-2'>
           <div>Total Amount: ${totalAmount.toFixed(2)}</div>
-          <Button label="Checkout" onClick={handler} />
+          <Button label='Checkout' onClick={handler} />
         </div>
       </Sidebar>
     </div>

@@ -1,5 +1,5 @@
-import ProductCrudGrid from "@/components/crud/product-crud-grid"
+import ProductCrudGrid from '@/components/crud/product-crud-grid';
 
 export default function ProductCrud() {
-    return <ProductCrudGrid />
+  return <ProductCrudGrid />;
 }
