@@ -8,9 +8,10 @@ import { useAppSelector } from "@/lib/hooks";
 import { getProductById } from "@/lib/data/products";
 import SidebarProductList, { CartProduct } from "./sidebar-product-list";
 import { Paginator } from "primereact/paginator";
-import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from "./paymentform";
+import { useRouter } from "next/navigation";
+
+const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function SideBar() {
   const [visibleRight, setVisibleRight] = useState(false);
@@ -18,11 +19,7 @@ export default function SideBar() {
   const [products, setProducts] = useState<CartProduct[]>([]);
   const [quantity, setQuantity] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [showPaymentForm, setShowPaymentForm] = useState(false); 
-
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-  );
+  const router = useRouter();
 
   const [first, setFirst] = useState<number>(0);
   const [rows, setRows] = useState<number>(5);
@@ -63,6 +60,30 @@ export default function SideBar() {
 
   const paginatedProducts = products.slice(first, first + rows);
 
+  const handler = async () => {
+    try {
+      const stripe = await asyncStripe;
+      if (!stripe) return;
+      const res = await fetch("/api/stripe/session", {
+        method: "POST",
+        body: JSON.stringify({
+          products
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const { sessionId } = await res.json();
+
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      console.log(error);
+      if (error) {
+        router.push("/error");
+      }
+    } catch (err) {
+      console.log(err);
+      router.push("/error");
+    }
+  };
+
   return (
     <div className="card">
       <div className="flex gap-2 justify-content-center">
@@ -91,12 +112,7 @@ export default function SideBar() {
         </div>
         <div className="absolute inset-x-0 bottom-12 flex justify-between p-4">
           <div>Total Amount: ${totalAmount.toFixed(2)}</div>
-          <Button label="Checkout" onClick={() => setShowPaymentForm(true)} />
-          {showPaymentForm && (
-            <Elements stripe={stripePromise}>
-              <PaymentForm />
-            </Elements>
-          )}
+          <Button label="Checkout" onClick={handler} />
         </div>
       </Sidebar>
     </div>
