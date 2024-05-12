@@ -34,11 +34,9 @@ export default function SideBar() {
       const products = [];
       for (const item of items) {
         const product: CartProduct = (await getProductById(item.id)) as any;
-        console.log(product, item.id);
         product.quantity = item.quantity;
         products.push(product);
       }
-      console.log(products);
       return products;
     };
     getProductsByCart(cart).then((items) => setProducts(items));
