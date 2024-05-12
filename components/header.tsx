@@ -30,7 +30,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex">
-        <Button icon="pi pi-user text-main-color text-2xl" style={{ fontSize: '2rem' }} />
+        <a href="/login"><Button icon="pi pi-user text-main-color text-2xl" style={{ fontSize: '2rem' }} /></a>
         <Link href="">
           <SideBar/>
         </Link>

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useState, useEffect, useRef } from "react";
 import { classNames } from "primereact/utils";
@@ -8,15 +8,11 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { Toolbar } from "primereact/toolbar";
 import { RadioButton } from "primereact/radiobutton";
-import {
-  InputNumber,
-  InputNumberValueChangeEvent,
-} from "primereact/inputnumber";
+import {InputNumber,InputNumberValueChangeEvent,} from "primereact/inputnumber";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Product, getProducts } from "@/lib/data/products";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
+
 
 export default function ProductCrudGrid() {
   let emptyProduct = {
@@ -83,22 +79,12 @@ export default function ProductCrudGrid() {
         const index = findIndexById(product.id);
 
         _products[index] = _product;
-        toast.current?.show({
-          severity: "success",
-          summary: "Successful",
-          detail: "Product Updated",
-          life: 3000,
-        });
+        toast.current?.show({severity: "success", summary: "Successful", detail: "Product Updated", life: 3000,});
       } else {
         _product.id = createId();
         _product.images = "product-placeholder.svg";
         _products.push(_product);
-        toast.current?.show({
-          severity: "success",
-          summary: "Successful",
-          detail: "Product Created",
-          life: 3000,
-        });
+        toast.current?.show({severity: "success", summary: "Successful", detail: "Product Created", life: 3000,});
       }
 
       setProducts(_products);
@@ -123,12 +109,7 @@ export default function ProductCrudGrid() {
     setProducts(_products);
     setDeleteProductDialog(false);
     setProduct(emptyProduct);
-    toast.current?.show({
-      severity: "success",
-      summary: "Successful",
-      detail: "Product Deleted",
-      life: 3000,
-    });
+    toast.current?.show({severity: "success", summary: "Successful", detail: "Product Deleted", life: 3000,});
   };
 
   const findIndexById = (id: string) => {
@@ -166,12 +147,7 @@ export default function ProductCrudGrid() {
     setProducts(_products);
     setDeleteProductsDialog(false);
     setSelectedProducts([]);
-    toast.current?.show({
-      severity: "success",
-      summary: "Successful",
-      detail: "Products Deleted",
-      life: 3000,
-    });
+    toast.current?.show({severity: "success", summary: "Successful", detail: "Products Deleted", life: 3000,});
   };
 
   const onCategoryChange = (e: any) => {
@@ -264,16 +240,17 @@ export default function ProductCrudGrid() {
   };
 
   const header = (
-    <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
+    <div className="flex flex-wrap gap-2 align-items-center justify-between">
       <h4 className="m-0">Manage Products</h4>
-      <IconField iconPosition="left">
-        <InputIcon className="pi pi-search"> </InputIcon>
+      <div className="flex gap-2 items-center">
         <InputText
           v-model="value1"
           onInput={(e: any) => setGlobalFilter(e.target.value)}
           placeholder="Search"
+          className="mr-2"
         />
-      </IconField>
+        <Button icon="pi pi-search" className="p-button-rounded p-button-text" />
+      </div>
     </div>
   );
   const productDialogFooter = (
@@ -334,13 +311,10 @@ export default function ProductCrudGrid() {
           paginator
           rows={10}
           rowsPerPageOptions={[5, 10, 25]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
           globalFilter={globalFilter}
           header={header}
           selectionMode="multiple"
         >
-          {/* <Column selectionMode="multiple" exportable={false}></Column> */}
           <Column
             field="name"
             header="Name"
@@ -429,31 +403,21 @@ export default function ProductCrudGrid() {
               <RadioButton
                 inputId="category2"
                 name="category"
-                value="Clothing"
+                value="men's clothing"
                 onChange={onCategoryChange}
-                checked={product.category === "Clothing"}
+                checked={product.category === "men's clothing"}
               />
-              <label htmlFor="category2">Clothing</label>
+              <label htmlFor="category2">Men Clothing</label>
             </div>
             <div className="field-radiobutton col-6">
               <RadioButton
                 inputId="category3"
                 name="category"
-                value="Electronics"
+                value="women's clothing"
                 onChange={onCategoryChange}
-                checked={product.category === "Electronics"}
+                checked={product.category === "women's clothing"}
               />
-              <label htmlFor="category3">Electronics</label>
-            </div>
-            <div className="field-radiobutton col-6">
-              <RadioButton
-                inputId="category4"
-                name="category"
-                value="Fitness"
-                onChange={onCategoryChange}
-                checked={product.category === "Fitness"}
-              />
-              <label htmlFor="category4">Fitness</label>
+              <label htmlFor="category3">Women Clothing</label>
             </div>
           </div>
         </div>
