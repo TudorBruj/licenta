@@ -11,7 +11,7 @@ import { RadioButton } from "primereact/radiobutton";
 import {InputNumber,InputNumberValueChangeEvent,} from "primereact/inputnumber";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import { Product, getProducts } from "@/lib/data/products";
+import { Product, addProduct, getProducts, removeProduct, updateProduct } from "@/lib/data/products";
 
 
 export default function ProductCrudGrid() {
@@ -38,8 +38,13 @@ export default function ProductCrudGrid() {
   const toast = useRef<Toast>(null);
   const dt = useRef(null);
 
+  const loadData = async () => {
+    const data = await getProducts();
+    setProducts(data as any);
+  }
+
   useEffect(() => {
-    getProducts().then((data) => setProducts(data));
+    loadData();
   }, []);
 
   const formatCurrency = (value: number) => {
@@ -68,26 +73,22 @@ export default function ProductCrudGrid() {
     setDeleteProductsDialog(false);
   };
 
-  const saveProduct = () => {
+  const saveProduct = async () => {
     setSubmitted(true);
 
     if (product.name.trim()) {
-      let _products = [...products];
       let _product = { ...product };
 
       if (product.id) {
-        const index = findIndexById(product.id);
-
-        _products[index] = _product;
+        await updateProduct(_product);
         toast.current?.show({severity: "success", summary: "Successful", detail: "Product Updated", life: 3000,});
       } else {
-        _product.id = createId();
         _product.images = "product-placeholder.svg";
-        _products.push(_product);
+        await addProduct(_product);
         toast.current?.show({severity: "success", summary: "Successful", detail: "Product Created", life: 3000,});
       }
 
-      setProducts(_products);
+      await loadData();
       setProductDialog(false);
       setProduct(emptyProduct);
     }
@@ -103,48 +104,25 @@ export default function ProductCrudGrid() {
     setDeleteProductDialog(true);
   };
 
-  const deleteProduct = () => {
-    let _products = products.filter((val) => val.id !== product.id);
+  const deleteProduct = async () => {
+    await removeProduct(product.id);
 
-    setProducts(_products);
+    await loadData();
     setDeleteProductDialog(false);
     setProduct(emptyProduct);
     toast.current?.show({severity: "success", summary: "Successful", detail: "Product Deleted", life: 3000,});
-  };
-
-  const findIndexById = (id: string) => {
-    let index = -1;
-
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    return index;
-  };
-
-  const createId = () => {
-    let id = "";
-    let chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-
-    return id;
   };
 
   const confirmDeleteSelected = () => {
     setDeleteProductsDialog(true);
   };
 
-  const deleteSelectedProducts = () => {
-    let _products = products.filter((val) => !selectedProducts.includes(val));
-
-    setProducts(_products);
+  const deleteSelectedProducts = async () => {
+    for (const product of selectedProducts) {
+      await removeProduct(product.id);
+    }
+    
+    await loadData();
     setDeleteProductsDialog(false);
     setSelectedProducts([]);
     toast.current?.show({severity: "success", summary: "Successful", detail: "Products Deleted", life: 3000,});

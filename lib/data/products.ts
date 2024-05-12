@@ -65,3 +65,36 @@ export async function getProductById(id: string) {
         await client.close();
       }
 }
+
+export async function addProduct(product: Product) {
+  try {
+    await client.connect();
+    const collection = client.db(dbName).collection<Product>("products");
+    product._id = new ObjectId();
+    product.id = product._id.toString();
+    await collection.insertOne(product);
+  } finally {
+    await client.close();
+  }
+}
+
+export async function removeProduct(id: string) {
+    try {
+        await client.connect();
+        const collection = client.db(dbName).collection<Product>("products");
+        await collection.deleteOne({_id: new ObjectId(id)});
+      } finally {
+        await client.close();
+      }
+}
+
+export async function updateProduct(product: Product) {
+  try {
+    await client.connect();
+    const collection = client.db(dbName).collection<Product>("products");
+    product._id = new ObjectId(product.id);
+    await collection.findOneAndReplace({_id: product._id}, product)
+  } finally {
+    await client.close();
+  }
+}
