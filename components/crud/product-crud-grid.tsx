@@ -6,7 +6,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
-import { Toolbar } from 'primereact/toolbar';
 import { RadioButton } from 'primereact/radiobutton';
 import {
   InputNumber,
@@ -189,26 +188,6 @@ export default function ProductCrudGrid() {
     setProduct(_product);
   };
 
-  const leftToolbarTemplate = () => {
-    return (
-      <div className='flex flex-wrap gap-2'>
-        <Button
-          label='New'
-          icon='pi pi-plus'
-          severity='success'
-          onClick={openNew}
-        />
-        <Button
-          label='Delete'
-          icon='pi pi-trash'
-          severity='danger'
-          onClick={confirmDeleteSelected}
-          disabled={!selectedProducts || !selectedProducts.length}
-        />
-      </div>
-    );
-  };
-
   const imageBodyTemplate = (rowData: Product) => {
     return (
       <img
@@ -249,11 +228,26 @@ export default function ProductCrudGrid() {
     <div className='align-items-center flex flex-wrap justify-between gap-2'>
       <h4 className='m-0'>Manage Products</h4>
       <div className='flex items-center gap-2'>
+        <Button
+          label='New'
+          icon='pi pi-plus'
+          severity='success'
+          onClick={openNew}
+          className='mr-4'
+        />
+        <Button
+          label='Delete'
+          icon='pi pi-trash'
+          severity='danger'
+          onClick={confirmDeleteSelected}
+          disabled={!selectedProducts || !selectedProducts.length}
+          className='mr-4'
+        />
         <InputText
           v-model='value1'
           onInput={(e: any) => setGlobalFilter(e.target.value)}
           placeholder='Search'
-          className='mr-2'
+          className='mr-4'
         />
         <Button
           icon='pi pi-search'
@@ -305,8 +299,6 @@ export default function ProductCrudGrid() {
     <div>
       <Toast ref={toast} />
       <div className='card'>
-        <Toolbar className='mb-4' left={leftToolbarTemplate}></Toolbar>
-
         <DataTable
           ref={dt}
           value={products}
