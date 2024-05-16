@@ -1,11 +1,25 @@
+'use client';
+
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
+import { Button } from 'primereact/button';
 
 export default function LoginForm() {
+  const handleBackButtonClick = () => {
+    window.location.href = '/';
+  };
+
   return (
     <div className='grid h-screen place-items-center'>
       <div className='rounded-lg border-t-4 border-main-color p-5 shadow-lg'>
-        <h1 className='my-4 text-xl font-bold'>Login</h1>
+        <div className='mb-4 flex items-center'>
+          <Button
+            icon='pi pi-arrow-left'
+            onClick={handleBackButtonClick}
+            className='p-button-text mr-4'
+          />
+          <h1 className='text-xl font-bold'>Login</h1>
+        </div>
 
         <form className='flex flex-col gap-3'>
           <input
