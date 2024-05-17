@@ -6,6 +6,7 @@ import { MenuItem } from 'primereact/menuitem';
 import { Button } from 'primereact/button';
 import ProductCrudGrid from '@/components/crud/product-crud-grid';
 import UserCrudGrid from '@/components/crud/user-crud-grid';
+import ReviewCrudGrid from '@/components/crud/review-crud-grid';
 
 export default function RouterDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -42,6 +43,7 @@ export default function RouterDemo() {
       </div>
       {activeIndex === 0 && <ProductCrudGrid />}
       {activeIndex === 1 && <UserCrudGrid />}
+      {activeIndex === 3 && <ReviewCrudGrid />}
     </div>
   );
 }
