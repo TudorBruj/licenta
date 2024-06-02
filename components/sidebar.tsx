@@ -72,12 +72,12 @@ export default function SideBar() {
       const { sessionId } = await res.json();
 
       const { error } = await stripe.redirectToCheckout({ sessionId });
-      console.log(error);
+      console.error(error);
       if (error) {
         router.push('/error');
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       router.push('/error');
     }
   };

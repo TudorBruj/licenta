@@ -5,6 +5,7 @@ import { Big_Shoulders_Text } from 'next/font/google';
 import { useAppSelector } from '@/lib/hooks';
 import SideBar from './sidebar';
 import { Button } from 'primereact/button';
+import { signOut } from '@/lib/auth';
 
 const font = Big_Shoulders_Text({ subsets: ['latin'] });
 const linkStyle = 'text-main-color font-bold ' + font.className;
@@ -35,12 +36,19 @@ export default function Header() {
           </Link>
         </div>
         <div className='flex'>
-          <a href='/login'>
+          <a href='/admin'>
             <Button
               icon='pi pi-user text-main-color text-2xl'
               style={{ fontSize: '2rem' }}
             />
           </a>
+          <Button
+            icon='pi pi-user text-main-color text-2xl'
+            style={{ fontSize: '2rem' }}
+            onClick={async () => {
+              await signOut();
+            }}
+          />
           <Link href=''>
             <SideBar />
           </Link>

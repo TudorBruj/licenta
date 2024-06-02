@@ -15,6 +15,11 @@ export async function getUsers() {
   return await getData<User>('users');
 }
 
+export async function getUser(email: string) {
+  const users = await getData<User>('users', { email });
+  return users[0];
+}
+
 export async function addUser(user: User) {
   await addData<User>('users', user);
 }
