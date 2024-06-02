@@ -22,7 +22,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
   };
 
   const viewProduct = (id: string) => {
-    router.push(`/ecommerce/product/${id}`);
+    router.push(`/product/${id}`);
   };
 
   const gridItem = (product: Product) => {

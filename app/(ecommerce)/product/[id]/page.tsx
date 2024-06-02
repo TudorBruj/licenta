@@ -1,16 +1,11 @@
-import { GetServerSideProps } from 'next';
-import { getProductById, Product } from '@/lib/data/products';
+import { getProductById } from '@/lib/data/products';
 import { TabView, TabPanel } from 'primereact/tabview';
+import { notFound } from 'next/navigation';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params!;
-  const product = await getProductById(id as string);
-  return {
-    props: { product },
-  };
-};
+export async function ProductPage({ params }: { params: { id: string } }) {
+  const product = await getProductById(params.id);
+  if (product === null) return notFound();
 
-const ProductPage = ({ product }: { product: Product }) => {
   return (
     <div className='p-4'>
       <div className='flex flex-col md:flex-row'>
@@ -34,6 +29,6 @@ const ProductPage = ({ product }: { product: Product }) => {
       </TabView>
     </div>
   );
-};
+}
 
 export default ProductPage;

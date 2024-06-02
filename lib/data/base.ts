@@ -45,8 +45,14 @@ export async function getDataById<T extends BaseData>(
   try {
     await client.connect();
     const collection = client.db(dbName).collection<T>(collectionName);
+    let objectId;
+    try {
+      objectId = new ObjectId(id);
+    } catch {
+      objectId = null;
+    }
     const data = await collection.findOne({
-      _id: new ObjectId(id),
+      _id: objectId,
     } as Filter<T>);
     if (data) {
       data.id = data._id.toString();
