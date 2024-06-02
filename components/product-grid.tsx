@@ -7,9 +7,11 @@ import { Paginator } from 'primereact/paginator';
 import Image from 'next/image';
 import { Product } from '@/lib/data/products';
 import { useAppDispatch } from '@/lib/hooks';
+import { useRouter } from 'next/navigation';
 
 export default function ProductGrid({ products }: { products: Product[] }) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const [first, setFirst] = useState<number>(0);
   const [rows, setRows] = useState<number>(12);
@@ -19,9 +21,17 @@ export default function ProductGrid({ products }: { products: Product[] }) {
     setRows(event.rows);
   };
 
+  const viewProduct = (id: string) => {
+    router.push(`/ecommerce/product/${id}`);
+  };
+
   const gridItem = (product: Product) => {
     return (
-      <div className='p-2' key={product.id}>
+      <div
+        className='p-2'
+        key={product.id}
+        onClick={() => viewProduct(product.id)}
+      >
         <div className='bg-white dark:bg-gray-900 border-gray-300 dark:border-blue-900/40 rounded-md border p-4'>
           <div className='flex flex-wrap items-center justify-between gap-2'>
             <div className='align-items-center flex gap-2'>
@@ -55,12 +65,13 @@ export default function ProductGrid({ products }: { products: Product[] }) {
               icon='pi pi-shopping-cart'
               className='p-button-rounded'
               label='Add to Cart'
-              onClick={() =>
+              onClick={(e) => {
+                e.stopPropagation();
                 dispatch({
                   type: 'cart/incrementQuantity',
                   payload: { id: product.id, quantity: 1 },
-                })
-              }
+                });
+              }}
             ></Button>
           </div>
         </div>
