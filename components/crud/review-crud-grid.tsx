@@ -17,6 +17,7 @@ import {
 export default function ReviewCrudGrid() {
   const emptyReview: Review = {
     _id: '',
+    id: '',
     user_id: '',
     product_id: '',
     rating: 0,

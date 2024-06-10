@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 import { addData, getData, getDataById, updateData, BaseData } from './base';
 
 export interface Review extends BaseData {
+  _id: string | ObjectId;
   user_id: string;
   product_id: string;
   rating: number;
@@ -12,6 +13,10 @@ export interface Review extends BaseData {
 
 export async function getReviews() {
   return await getData<Review>('reviews');
+}
+
+export async function getReviewsByProductId(productId: string) {
+  return await getData<Review>('reviews', { product_id: productId });
 }
 
 export async function getReviewById(id: string) {
