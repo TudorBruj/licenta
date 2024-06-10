@@ -43,7 +43,7 @@ export default function Header() {
             />
           </a>
           <Button
-            icon='pi pi-user text-main-color text-2xl'
+            icon='pi pi-sign-out text-main-color text-2xl'
             style={{ fontSize: '2rem' }}
             onClick={async () => {
               await signOut();
