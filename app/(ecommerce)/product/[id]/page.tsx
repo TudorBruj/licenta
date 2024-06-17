@@ -5,6 +5,7 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { notFound } from 'next/navigation';
 import { useAppDispatch } from '@/lib/hooks';
 import { Button } from 'primereact/button';
+import Image from 'next/image';
 
 export async function ProductPage({ params }: { params: { id: string } }) {
   const product = await getProductById(params.id);
@@ -15,10 +16,12 @@ export async function ProductPage({ params }: { params: { id: string } }) {
       <div className='flex flex-col md:flex-row md:space-x-8'>
         <div className='w-full flex-shrink-0 md:w-1/3'>
           <div className='bg-gray-100 flex h-80 w-full items-center justify-center overflow-hidden md:h-96 md:w-full'>
-            <img
+            <Image
               src={product.images}
               alt={product.name}
               className='h-full w-full object-contain'
+              width={500}
+              height={500}
             />
           </div>
         </div>

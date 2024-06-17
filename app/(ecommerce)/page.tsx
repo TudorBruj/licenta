@@ -11,11 +11,6 @@ export default async function Home() {
   return (
     <main>
       <section>
-        <div>
-          <img src='images/home.png' alt='' />
-        </div>
-      </section>
-      <section>
         <ProductCarousel products={products} />
         <h2 className={' text-center text-lg font-black ' + font.className}>
           Discover Products

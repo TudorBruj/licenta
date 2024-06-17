@@ -20,6 +20,7 @@ import {
   removeProduct,
   updateProduct,
 } from '@/lib/data/products';
+import Image from 'next/image';
 
 export default function ProductCrudGrid() {
   let emptyProduct = {
@@ -190,11 +191,12 @@ export default function ProductCrudGrid() {
 
   const imageBodyTemplate = (rowData: Product) => {
     return (
-      <img
+      <Image
         src={rowData.images}
         alt={rowData.images}
         className='shadow-2 border-round'
-        style={{ width: '64px' }}
+        width={64}
+        height={64}
       />
     );
   };
@@ -359,10 +361,12 @@ export default function ProductCrudGrid() {
         onHide={hideDialog}
       >
         {product.images && (
-          <img
+          <Image
             src={`https://primefaces.org/cdn/primereact/images/product/${product.images}`}
             alt={product.images}
             className='product-image m-auto block pb-3'
+            width={500}
+            height={500}
           />
         )}
         <div className='field'>
