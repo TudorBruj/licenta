@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       })),
       mode: 'payment',
       cancel_url: `${host}`,
-      success_url: `${host}/success`,
+      success_url: `${host}/ecommerce/success?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     return NextResponse.json({ sessionId: session.id }, { status: 200 });

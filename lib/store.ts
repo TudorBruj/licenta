@@ -34,6 +34,9 @@ const cartSlice = createSlice({
         state.splice(index, 1);
       }
     },
+    clearCart(state) {
+      return cartInitialState;
+    },
   },
 });
 
@@ -59,6 +62,9 @@ export const makeStore = () => {
 export const makePersistor = (store: AppStore) => {
   return persistStore(store);
 };
+
+export const { incrementQuantity, decrementQuantity, clearCart } =
+  cartSlice.actions;
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;

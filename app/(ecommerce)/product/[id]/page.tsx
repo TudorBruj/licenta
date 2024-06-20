@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { useAppDispatch } from '@/lib/hooks';
 import { Button } from 'primereact/button';
 import Image from 'next/image';
+import Reviews from '@/components/reviews';
 
 export async function ProductPage({ params }: { params: { id: string } }) {
   const product = await getProductById(params.id);
@@ -35,7 +36,7 @@ export async function ProductPage({ params }: { params: { id: string } }) {
       </div>
       <TabView className='mt-6'>
         <TabPanel header='Reviews'>
-          <p>No reviews yet.</p>
+          <Reviews productId={product.id} />
         </TabPanel>
       </TabView>
     </div>
