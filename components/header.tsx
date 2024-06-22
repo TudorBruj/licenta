@@ -7,11 +7,13 @@ import SideBar from './sidebar';
 import { Button } from 'primereact/button';
 import { signOut } from '@/lib/auth';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 const font = Big_Shoulders_Text({ subsets: ['latin'] });
 const linkStyle = 'text-main-color font-bold ' + font.className;
 
 export default function Header() {
+  const { data } = useSession();
   const cartCount = useAppSelector((state) => state.cart.length);
 
   return (
@@ -40,13 +42,15 @@ export default function Header() {
               style={{ fontSize: '2rem' }}
             />
           </a>
-          <Button
-            icon='pi pi-sign-out text-main-color text-2xl'
-            style={{ fontSize: '2rem' }}
-            onClick={async () => {
-              await signOut();
-            }}
-          />
+          {data?.user && (
+            <Button
+              icon='pi pi-sign-out text-main-color text-2xl'
+              style={{ fontSize: '2rem' }}
+              onClick={async () => {
+                await signOut();
+              }}
+            />
+          )}
           <Link href=''>
             <SideBar />
           </Link>
