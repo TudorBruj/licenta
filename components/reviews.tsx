@@ -13,13 +13,13 @@ export default function Reviews({ productId }: { productId: string }) {
   const [newReview, setNewReview] = useState('');
   const [rating, setRating] = useState<number>(0);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      const fetchedReviews = await getReviewsByProductId(productId);
-      setReviews(fetchedReviews);
-    };
+  const fetchReviews = async (productId: string) => {
+    const fetchedReviews = await getReviewsByProductId(productId);
+    setReviews(fetchedReviews);
+  };
 
-    fetchReviews();
+  useEffect(() => {
+    fetchReviews(productId);
   }, [productId]);
 
   const handleAddReview = async () => {
@@ -30,10 +30,10 @@ export default function Reviews({ productId }: { productId: string }) {
       product_id: productId,
       rating,
       comment: newReview,
-    };
+    } as Review;
 
-    const addedReview = await addReview(review);
-    setReviews((prev) => [...prev, addedReview]);
+    await addReview(review);
+    await fetchReviews(productId);
     setNewReview('');
     setRating(0);
   };

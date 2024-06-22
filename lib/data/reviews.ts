@@ -30,14 +30,8 @@ export async function getReviewById(id: string) {
   return await getDataById<Review>('reviews', id);
 }
 
-export async function addReview(review: Omit<Review, '_id' | 'id'>) {
-  const reviewWithId = {
-    ...review,
-    _id: new ObjectId().toString(),
-    id: new ObjectId().toString(),
-  };
-  await addData<Review>('reviews', reviewWithId);
-  return reviewWithId;
+export async function addReview(review: Review) {
+  await addData<Review>('reviews', review);
 }
 
 export async function updateReview(review: Review) {
