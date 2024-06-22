@@ -21,6 +21,7 @@ import {
   updateProduct,
 } from '@/lib/data/products';
 import Image from 'next/image';
+import { FileUpload } from 'primereact/fileupload';
 
 export default function ProductCrudGrid() {
   let emptyProduct = {
@@ -361,13 +362,29 @@ export default function ProductCrudGrid() {
         onHide={hideDialog}
       >
         {product.images && (
-          <Image
-            src={product.images}
-            alt={product.images}
-            className='product-image m-auto block pb-3'
-            width={500}
-            height={500}
-          />
+          <div>
+            <Image
+              src={product.images}
+              alt={product.images}
+              className='product-image m-auto block pb-3'
+              width={500}
+              height={500}
+            />
+            <FileUpload
+              mode='basic'
+              name='file'
+              url='/api/images'
+              accept='image/*'
+              maxFileSize={1000000}
+              onUpload={(event) => {
+                const _product = {
+                  ...product,
+                  images: `/images/uploads/${event.files[0].name}`,
+                };
+                setProduct(_product);
+              }}
+            />
+          </div>
         )}
         <div className='field'>
           <label htmlFor='name' className='font-bold'>
