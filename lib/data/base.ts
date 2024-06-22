@@ -34,7 +34,7 @@ export async function getData<T extends BaseData>(
     }
     return data;
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -61,7 +61,7 @@ export async function getDataById<T extends BaseData>(
     }
     return data;
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -76,7 +76,7 @@ export async function addData<T extends BaseData>(
     data.id = data._id.toString();
     await collection.insertOne(data);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -89,7 +89,7 @@ export async function removeData<T extends BaseData>(
     const collection = client.db(dbName).collection<T>(collectionName);
     await collection.deleteOne({ _id: new ObjectId(id) } as Filter<T>);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -103,6 +103,6 @@ export async function updateData<T extends BaseData>(
     data._id = new ObjectId(data.id);
     await collection.findOneAndReplace({ _id: data._id } as Filter<T>, data);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
