@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/lib/data/products';
 import { useAppDispatch } from '@/lib/hooks';
+import { incrementQuantity } from '@/lib/store';
 
 export default function ProductGrid({ products }: { products: Product[] }) {
   const dispatch = useAppDispatch();
@@ -62,11 +63,9 @@ export default function ProductGrid({ products }: { products: Product[] }) {
                 className='p-button-rounded'
                 label='Add to Cart'
                 onClick={(e) => {
+                  e.preventDefault();
                   e.stopPropagation();
-                  dispatch({
-                    type: 'cart/incrementQuantity',
-                    payload: { id: product.id, quantity: 1 },
-                  });
+                  dispatch(incrementQuantity({ id: product.id, quantity: 1 }));
                 }}
               ></Button>
             </div>
