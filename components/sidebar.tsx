@@ -92,12 +92,12 @@ export default function SideBar() {
   return (
     <div className='card'>
       <div className='justify-content-center flex gap-2'>
-        <Button
-          icon='pi pi-shopping-cart text-main-color text-2xl'
-          style={{ fontSize: '2rem' }}
+        <i
+          className='pi pi-shopping-cart cursor-pointer pt-2 text-2xl text-main-color'
           onClick={() => setVisibleRight(true)}
-        />
-        <Badge value={quantity}></Badge>
+        >
+          <Badge value={quantity}></Badge>
+        </i>
       </div>
 
       <Sidebar
