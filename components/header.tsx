@@ -15,8 +15,14 @@ export default function Header() {
   const { data } = useSession();
 
   return (
-    <header>
-      <div className='sticky m-auto flex w-full items-center justify-between px-10 py-6'>
+    <header
+      className='sticky top-0 z-50'
+      style={{
+        background:
+          'linear-gradient(to bottom, white 85%, rgba(255, 255, 255, 0))',
+      }}
+    >
+      <div className='m-auto flex w-full items-center justify-between px-10 py-6'>
         <Link href='/' className='flex items-center'>
           <Image src='/images/Hanger.png' alt='Logo' width={120} height={40} />
         </Link>
