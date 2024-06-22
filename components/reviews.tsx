@@ -42,9 +42,9 @@ export default function Reviews({ productId }: { productId: string }) {
         reviews.map((review) => (
           <div key={review._id.toString()} className='mb-4'>
             <p>{review.comment}</p>
-            <p>
+            <div>
               Rating: <Rating value={review.rating} readOnly cancel={false} />
-            </p>
+            </div>
           </div>
         ))
       ) : (
