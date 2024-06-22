@@ -362,7 +362,7 @@ export default function ProductCrudGrid() {
       >
         {product.images && (
           <Image
-            src={`https://primefaces.org/cdn/primereact/images/product/${product.images}`}
+            src={product.images}
             alt={product.images}
             className='product-image m-auto block pb-3'
             width={500}
