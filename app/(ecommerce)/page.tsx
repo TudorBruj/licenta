@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <main>
       <section>
-        <ProductCarousel products={products} />
+        <ProductCarousel />
         <h2 className={' text-center text-lg font-black ' + font.className}>
           Discover Products
         </h2>
