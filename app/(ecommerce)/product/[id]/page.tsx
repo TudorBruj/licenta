@@ -1,23 +1,19 @@
-'use client';
-
-import { Product, getProductById } from '@/lib/data/products';
+import { getProductById } from '@/lib/data/products';
 import { TabView, TabPanel } from 'primereact/tabview';
-import { notFound } from 'next/navigation';
-import { useAppDispatch } from '@/lib/hooks';
-import { Button } from 'primereact/button';
 import Image from 'next/image';
 import Reviews from '@/components/reviews';
-import { useEffect, useState } from 'react';
+import { notFound } from 'next/navigation';
+import AddToCartButton from '@/components/add-to-cart-button';
 
-export function ProductPage({ params }: { params: { id: string } }) {
-  const { id } = params;
-  const [product, setProduct] = useState<Product | null>(null);
+export default async function ProductPage({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  const product = await getProductById(id);
+  if (!product) notFound();
 
-  useEffect(() => {
-    getProductById(id).then((product) => setProduct(product));
-  }, [id]);
-
-  return product ? (
+  return (
     <div className='p-4'>
       <div className='flex flex-col md:flex-row md:space-x-8'>
         <div className='w-full flex-shrink-0 md:w-1/3'>
@@ -45,29 +41,5 @@ export function ProductPage({ params }: { params: { id: string } }) {
         </TabPanel>
       </TabView>
     </div>
-  ) : (
-    <div></div>
   );
 }
-
-function AddToCartButton({ product }: { product: any }) {
-  const dispatch = useAppDispatch();
-
-  const addToCart = () => {
-    dispatch({
-      type: 'cart/incrementQuantity',
-      payload: { id: product.id, quantity: 1 },
-    });
-  };
-
-  return (
-    <Button
-      label='Add to Cart'
-      icon='pi pi-shopping-cart'
-      className='bg-blue-600 text-white hover:bg-blue-700 border-blue-600 rounded border px-6 py-3 font-bold transition'
-      onClick={addToCart}
-    />
-  );
-}
-
-export default ProductPage;
