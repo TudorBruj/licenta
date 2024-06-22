@@ -50,13 +50,13 @@ export default function Success() {
             key={product.id}
             className='flex flex-col items-center rounded-lg border p-4'
           >
-            {/* <Image
+            <Image
               src={product.images[0]}
               alt={product.name}
               width={150}
               height={150}
               className='mb-4'
-            /> */}
+            />
             <h2 className='text-xl font-semibold'>{product.name}</h2>
             <p className='text-gray-600'>{product.description}</p>
             <p className='mt-4 text-lg font-bold'>
