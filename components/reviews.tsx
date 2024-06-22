@@ -5,8 +5,10 @@ import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Rating, RatingChangeEvent } from 'primereact/rating';
 import { Review, getReviewsByProductId, addReview } from '@/lib/data/reviews';
+import { useSession } from 'next-auth/react';
 
 export default function Reviews({ productId }: { productId: string }) {
+  const { data } = useSession();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newReview, setNewReview] = useState('');
   const [rating, setRating] = useState<number>(0);
@@ -24,7 +26,7 @@ export default function Reviews({ productId }: { productId: string }) {
     if (!newReview.trim() || rating <= 0) return;
 
     const review = {
-      user_id: 'current_user_id',
+      user_id: data?.user?.id || 'anonymous',
       product_id: productId,
       rating,
       comment: newReview,

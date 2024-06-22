@@ -12,7 +12,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (typeof email !== 'string') return null;
 
         const user = await getUser(email);
-        if (user?.password === password) return user;
+        if (user?.password === password)
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          };
         return null;
       },
     }),
