@@ -1,18 +1,23 @@
 'use client';
 
-import { getProductById } from '@/lib/data/products';
+import { Product, getProductById } from '@/lib/data/products';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { notFound } from 'next/navigation';
 import { useAppDispatch } from '@/lib/hooks';
 import { Button } from 'primereact/button';
 import Image from 'next/image';
 import Reviews from '@/components/reviews';
+import { useEffect, useState } from 'react';
 
-export async function ProductPage({ params }: { params: { id: string } }) {
-  const product = await getProductById(params.id);
-  if (product === null) return notFound();
+export function ProductPage({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const [product, setProduct] = useState<Product | null>(null);
 
-  return (
+  useEffect(() => {
+    getProductById(id).then((product) => setProduct(product));
+  }, [id]);
+
+  return product ? (
     <div className='p-4'>
       <div className='flex flex-col md:flex-row md:space-x-8'>
         <div className='w-full flex-shrink-0 md:w-1/3'>
@@ -40,6 +45,8 @@ export async function ProductPage({ params }: { params: { id: string } }) {
         </TabPanel>
       </TabView>
     </div>
+  ) : (
+    <div></div>
   );
 }
 
