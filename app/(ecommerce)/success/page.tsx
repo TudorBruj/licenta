@@ -1,13 +1,10 @@
 'use client';
 
-import Stripe from 'stripe';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { clearCart } from '@/lib/store';
 import { redirect, useSearchParams } from 'next/navigation';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 interface Product {
   id: string;

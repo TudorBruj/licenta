@@ -30,7 +30,7 @@ export default function ReviewCrudGrid() {
   const [reviewDialog, setReviewDialog] = useState(false);
   const [deleteReviewDialog, setDeleteReviewDialog] = useState(false);
   const [review, setReview] = useState<Review>(emptyReview);
-  const [submitted, setSubmitted] = useState(false);
+  const [, setSubmitted] = useState(false);
   const [globalFilter, setGlobalFilter] = useState('');
   const toast = useRef<Toast>(null);
 

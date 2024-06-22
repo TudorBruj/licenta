@@ -26,11 +26,8 @@ export default function RegisterForm() {
       body: JSON.stringify({ name, email, password }),
     });
 
-    const data = await response.json();
-
     if (response.ok) {
       window.location.href = '/login';
-    } else {
     }
   };
 

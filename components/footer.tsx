@@ -3,9 +3,6 @@ import { Big_Shoulders_Text } from 'next/font/google';
 
 const font = Big_Shoulders_Text({ subsets: ['latin'] });
 const footerBoxStyle = 'flex flex-col ' + font.className;
-const footerTitleStyle = 'text-bg-color uppercase' + font.className;
-const footerItemStyle =
-  'text-bg-color text-base uppercase mt-4d' + font.className;
 
 export default function Footer() {
   return (

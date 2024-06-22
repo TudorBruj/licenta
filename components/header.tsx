@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { Big_Shoulders_Text } from 'next/font/google';
-import { useAppSelector } from '@/lib/hooks';
 import SideBar from './sidebar';
 import { Button } from 'primereact/button';
 import { signOut } from '@/lib/auth';
@@ -14,7 +13,6 @@ const linkStyle = 'text-main-color font-bold ' + font.className;
 
 export default function Header() {
   const { data } = useSession();
-  const cartCount = useAppSelector((state) => state.cart.length);
 
   return (
     <header>
