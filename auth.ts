@@ -8,7 +8,6 @@ export const { auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       async authorize(credentials) {
-        console.log(credentials);
         const { email, password } = credentials;
         if (typeof email !== 'string') return null;
 

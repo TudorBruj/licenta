@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
+import { isAdminUser } from './lib/data/users.utils';
 
 export const authConfig = {
   pages: {
@@ -6,12 +7,8 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
       const isOnAdmin = nextUrl.pathname.startsWith('/admin');
-      if (isOnAdmin) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      }
+      if (isOnAdmin) return isAdminUser(auth?.user?.email); // allow only admin user on admin page
       return true;
     },
   },

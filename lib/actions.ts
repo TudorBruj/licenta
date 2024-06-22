@@ -2,10 +2,17 @@
 
 import { signIn } from '@/auth';
 import { redirect } from 'next/navigation';
+import { isAdminUser } from './data/users.utils';
 
 export async function authenticate(_currentState: unknown, formData: FormData) {
+  const email = <string>formData.get('email');
+  const password = <string>formData.get('password');
   try {
-    await signIn('credentials', formData);
+    await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
   } catch (error: any) {
     if (error) {
       switch (error.type) {
@@ -17,6 +24,6 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
     }
     throw error;
   } finally {
-    redirect('/admin');
+    redirect(isAdminUser(email) ? '/admin' : '/');
   }
 }

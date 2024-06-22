@@ -32,7 +32,6 @@ export default function RegisterForm() {
     if (response.ok) {
       window.location.href = '/login';
     } else {
-      setError(data.error);
     }
   };
 
