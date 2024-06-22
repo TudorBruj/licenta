@@ -1,7 +1,6 @@
 'use client';
 
 import { authenticate } from '@/lib/actions';
-/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
 import { Button } from 'primereact/button';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -46,7 +45,7 @@ export default function LoginForm() {
             </div>
           )}
           <Link className='mt-3 text-right text-sm' href={'/register'}>
-            Don't have an account?
+            Don{"'"}t have an account?
             <span className='underline'>Register</span>
           </Link>
         </form>

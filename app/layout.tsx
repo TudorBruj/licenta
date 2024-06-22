@@ -8,7 +8,7 @@ import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
-  title: 'Ecommerce',
+  title: 'Hanger',
 };
 
 export default async function RootLayout({
