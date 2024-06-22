@@ -20,18 +20,16 @@ export default function Header() {
         <Link href='/' className='flex items-center'>
           <Image src='/images/Hanger.png' alt='Logo' width={120} height={40} />
         </Link>
-        <div className='ml-16 flex flex-1 justify-center'>
-          <div className='flex gap-8'>
-            <Link href=" /category/women's clothing" className={linkStyle}>
-              Woman
-            </Link>
-            <Link href=" /category/men's clothing" className={linkStyle}>
-              Man
-            </Link>
-            <Link href=' /category/Accessories ' className={linkStyle}>
-              Accessories
-            </Link>
-          </div>
+        <div className='absolute left-[50%] flex flex-1 translate-x-[-50%] justify-evenly gap-8'>
+          <Link href=" /category/women's clothing" className={linkStyle}>
+            Woman
+          </Link>
+          <Link href=" /category/men's clothing" className={linkStyle}>
+            Man
+          </Link>
+          <Link href=' /category/Accessories ' className={linkStyle}>
+            Accessories
+          </Link>
         </div>
         <div className='flex items-center'>
           <a href='/admin'>
@@ -49,9 +47,7 @@ export default function Header() {
               }}
             />
           )}
-          <Link href=''>
-            <SideBar />
-          </Link>
+          <SideBar />
         </div>
       </div>
     </header>
