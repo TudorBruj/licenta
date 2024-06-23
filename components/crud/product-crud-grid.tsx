@@ -361,29 +361,6 @@ export default function ProductCrudGrid() {
         footer={productDialogFooter}
         onHide={hideDialog}
       >
-        {product.images && (
-          <Image
-            src={product.images}
-            alt={product.images}
-            className='product-image m-auto block pb-3'
-            width={500}
-            height={500}
-          />
-        )}
-        <FileUpload
-          mode='basic'
-          name='file'
-          url='/api/images'
-          accept='image/*'
-          maxFileSize={1000000}
-          onUpload={(event) => {
-            const _product = {
-              ...product,
-              images: `/images/uploads/${event.files[0].name}`,
-            };
-            setProduct(_product);
-          }}
-        />
         <div className='field'>
           <label htmlFor='name' className='font-bold'>
             Name
@@ -404,6 +381,18 @@ export default function ProductCrudGrid() {
           <label htmlFor='description' className='font-bold'>
             Description
           </label>
+          <InputText
+            id='description'
+            value={product.description}
+            onChange={(e) => onInputChange(e, 'description')}
+            required
+            className={classNames({
+              'p-invalid': submitted && !product.description,
+            })}
+          />
+          {submitted && !product.description && (
+            <small className='p-error'>Description is required.</small>
+          )}
         </div>
 
         <div className='field'>
@@ -456,6 +445,33 @@ export default function ProductCrudGrid() {
               locale='en-US'
             />
           </div>
+        </div>
+
+        {product.images && (
+          <Image
+            src={product.images}
+            alt={product.images}
+            className='product-image m-auto block pb-3'
+            width={200}
+            height={200}
+          />
+        )}
+        <div className='flex justify-start'>
+          <FileUpload
+            mode='basic'
+            name='file'
+            url='/api/images'
+            accept='image/*'
+            maxFileSize={1000000}
+            onUpload={(event) => {
+              const _product = {
+                ...product,
+                images: `/images/uploads/${event.files[0].name}`,
+              };
+              setProduct(_product);
+            }}
+            className='w-24'
+          />
         </div>
       </Dialog>
 

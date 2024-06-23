@@ -22,7 +22,7 @@ export default function Header() {
           'linear-gradient(to bottom, white 85%, rgba(255, 255, 255, 0))',
       }}
     >
-      <div className='m-auto flex w-full items-center justify-between px-10 py-6'>
+      <div className='m-auto flex w-full items-center justify-between px-10 pb-6'>
         <Link href='/' className='flex items-center'>
           <Image src='/images/Hanger.png' alt='Logo' width={120} height={40} />
         </Link>

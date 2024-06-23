@@ -1,10 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { clearCart } from '@/lib/store';
 import { redirect, useSearchParams } from 'next/navigation';
+import { Button } from 'primereact/button';
 
 interface Product {
   id: string;
@@ -39,32 +41,42 @@ export default function Success() {
   }, [sessionId]);
 
   return (
-    <div className='p-8'>
-      <h1 className='mb-8 text-3xl font-bold'>Thank you for your purchase!</h1>
-      <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+    <div className='flex min-h-screen flex-col items-center justify-center p-8'>
+      <h1 className='mb-8 text-center text-3xl font-bold text-main-color'>
+        Thank you for your purchase!
+      </h1>
+      <ul className='w-full max-w-md space-y-4'>
         {products.map((product) => (
-          <div
+          <li
             key={product.id}
-            className='flex flex-col items-center rounded-lg border p-4'
+            className='flex items-start space-x-4 rounded-lg border p-4'
           >
             <Image
               src={product.images[0]}
               alt={product.name}
-              width={150}
-              height={150}
-              className='mb-4'
+              width={50}
+              height={50}
+              className='flex-shrink-0'
             />
-            <h2 className='text-xl font-semibold'>{product.name}</h2>
-            <p className='text-gray-600'>{product.description}</p>
-            <p className='mt-4 text-lg font-bold'>
-              ${(product.price / 100).toFixed(2)}
-            </p>
-            <p className='text-gray-500 text-sm'>
-              Quantity: {product.quantity}
-            </p>
-          </div>
+            <div>
+              <h2 className='text-sm font-semibold'>{product.name}</h2>
+              <p className='text-gray-600 text-xs'>{product.description}</p>
+              <p className='mt-2 text-sm font-bold'>
+                ${(product.price / 100).toFixed(2)}
+              </p>
+              <p className='text-gray-500 text-xs'>
+                Quantity: {product.quantity}
+              </p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
+      <Link href='/'>
+        <Button
+          label='Continue Shopping'
+          className='p-button-rounded p-button-primary mt-8 text-main-color'
+        />
+      </Link>
     </div>
   );
 }
