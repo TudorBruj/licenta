@@ -3,7 +3,7 @@ import { Button } from 'primereact/button';
 
 export default function NotFound() {
   return (
-    <div className='bg-gray-100 pb-30 flex min-h-screen flex-col items-center justify-center p-32 text-main-color'>
+    <div className='bg-gray-100 pb-30 flex min-h-[60vh] flex-col items-center justify-center p-32 text-main-color'>
       <h1 className='mt-0 text-4xl font-bold'>Page Not Found</h1>
       <p className='text-gray-600 mt-2 text-lg'>
         The page you{"'"}re looking for doesn{"'"}t exist.

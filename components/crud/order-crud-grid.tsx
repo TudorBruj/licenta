@@ -14,7 +14,6 @@ import {
 } from 'primereact/inputnumber';
 import {
   Order,
-  OrderItem,
   addOrder,
   getOrders,
   removeOrder,
@@ -27,7 +26,6 @@ export default function OrderCrudGrid() {
     id: '',
     user_id: '',
     total_amount: 0,
-    items: [] as OrderItem[],
   };
 
   const [orders, setOrders] = useState<Order[]>([]);

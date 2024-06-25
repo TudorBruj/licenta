@@ -1,6 +1,5 @@
 'use server';
 
-import { ObjectId } from 'mongodb';
 import {
   BaseData,
   addData,
@@ -10,16 +9,9 @@ import {
   updateData,
 } from './base';
 
-export interface OrderItem {
-  product_id: string | ObjectId;
-  quantity: number;
-  price: number;
-}
-
 export interface Order extends BaseData {
   user_id: string;
   total_amount: number;
-  items: OrderItem[];
 }
 
 export async function getOrders() {

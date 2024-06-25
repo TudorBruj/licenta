@@ -97,7 +97,6 @@ export default function ProductCrudGrid() {
           life: 3000,
         });
       } else {
-        _product.images = 'product-placeholder.svg';
         await addProduct(_product);
         toast.current?.show({
           severity: 'success',

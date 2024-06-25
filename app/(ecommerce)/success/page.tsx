@@ -2,11 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { clearCart } from '@/lib/store';
 import { redirect, useSearchParams } from 'next/navigation';
 import { Button } from 'primereact/button';
+import { useSession } from 'next-auth/react';
+import { useAppDispatch } from '@/lib/hooks';
 
 interface Product {
   id: string;
@@ -23,22 +24,47 @@ async function fetchStripeProducts(sessionId: string) {
   return await response.json();
 }
 
+async function saveOrder(products: Product[]) {
+  const response = await fetch('/api/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      products,
+    }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to save order');
+  }
+}
+
 export default function Success() {
-  const dispatch = useDispatch();
+  const { data: session } = useSession();
+  const dispatch = useAppDispatch();
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const createOrder = useRef(true);
 
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
-  if (!sessionId) redirect('/');
 
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    dispatch(clearCart());
-  }, [dispatch]);
+  dispatch(clearCart());
 
   useEffect(() => {
-    fetchStripeProducts(sessionId).then((products) => setProducts(products));
-  }, [sessionId]);
+    if (!sessionId) redirect('/');
+    fetchStripeProducts(sessionId).then(async (products) => {
+      if (session?.user?.id) {
+        try {
+          if (createOrder.current) await saveOrder(products);
+          createOrder.current = false;
+        } catch (error) {
+          console.error('Failed to save order:', error);
+        }
+      }
+      setProducts(products);
+    });
+  }, []);
 
   return (
     <div className='flex min-h-screen flex-col items-center justify-center p-8'>
